@@ -11,7 +11,7 @@ on:
     - dev
     - sit   
     - prod 
-
+  workflow_dispatch:
 
 jobs:
   terraform_apply:
@@ -23,10 +23,10 @@ jobs:
 
       - name: Initialize Terraform
         run: |
-          terraform -chdir="./terraform" init
-          terraform -chdir="./terraform" fmt -check
+          terraform init
+          terraform fmt -check
 
       - name: Apply Terraform
         run: |
-          terraform -chdir="./terraform" plan  -target=${TF_MODULE_NAME}"  -var-file=./environments/${GITHUB_REF##*/}/main.tfvars
-          terraform -chdir="./terraform" apply -target=${TF_MODULE_NAME}"  -var-file=./environments/${GITHUB_REF##*/}/main.tfvars --auto-approve
+          terraform plan  -target=${TF_MODULE_NAME}"  -var-file=./environments/${GITHUB_REF##*/}/main.tfvars
+          terraform apply -target=${TF_MODULE_NAME}"  -var-file=./environments/${GITHUB_REF##*/}/main.tfvars --auto-approve
