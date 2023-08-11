@@ -5,7 +5,7 @@ resource "aws_cloudwatch_log_group" "lambda_log_group_prod" {
 }
 
 resource "aws_iam_role" "lambda_role" {
-  name = "lambda-role"
+  name = "lambda-role-prod"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
