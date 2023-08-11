@@ -24,7 +24,7 @@ jobs:
       - name: Set Terraform Environment Variables
         run: |
           echo "TF_MODULE_NAME=module.lambda_api_cloudwatch_${GITHUB_REF##*/}" >> $GITHUB_ENV
-          
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -38,5 +38,5 @@ jobs:
 
       - name: Apply Terraform
         run: |
-          terraform plan  -target=module.ecr" -var-file=./environments/${GITHUB_REF##*/}/main.tfvars
-          terraform apply -target=module.ecr" -var-file=./environments/${GITHUB_REF##*/}/main.tfvars --auto-approve
+          terraform plan  -target="module.ecr" -var-file=./environments/${GITHUB_REF##*/}/main.tfvars
+          terraform apply -target="module.ecr" -var-file=./environments/${GITHUB_REF##*/}/main.tfvars --auto-approve
