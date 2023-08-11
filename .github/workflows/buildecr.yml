@@ -1,0 +1,36 @@
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches:
+    - dev
+    - sit
+    - prod
+  pull_request:
+    branches:
+    - dev
+    - sit   
+    - prod 
+
+
+jobs:
+  terraform_apply:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Terraform Environment Variables
+        run: |
+          echo "TF_MODULE_NAME=module.lambda_api_cloudwatch_${GITHUB_REF##*/}" >> $GITHUB_ENV
+
+      - name: Initialize Terraform
+        run: |
+          terraform -chdir="./terraform" init
+          terraform -chdir="./terraform" fmt -check
+
+      - name: Apply Terraform
+        run: |
+          terraform -chdir="./terraform" plan  -target=module.ecr" -var-file=./environments/${GITHUB_REF##*/}/main.tfvars
+          terraform -chdir="./terraform" apply -target=module.ecr" -var-file=./environments/${GITHUB_REF##*/}/main.tfvars --auto-approve
