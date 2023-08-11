@@ -48,3 +48,7 @@ variable "db_name" {
   default     = ""
   type        = string
 }
+variable "cloudwatch_log_group_name" {
+  description = "Name of the CloudWatch Log Group"
+  type        = string
+}
