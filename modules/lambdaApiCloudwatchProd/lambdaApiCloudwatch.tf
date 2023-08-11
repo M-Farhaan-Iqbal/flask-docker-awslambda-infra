@@ -1,7 +1,7 @@
 # Create an IAM role for Lambda with necessary permissions
 
 resource "aws_cloudwatch_log_group" "lambda_log_group_prod" {
-  name = var.cloudwatch_log_group_name
+  name = "prodcloudwatch-log-group"
 }
 
 resource "aws_iam_role" "lambda_role" {
