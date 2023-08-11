@@ -1,4 +1,4 @@
-lambda_name = "flaskApiDev"
+lambda_name = "flaskApi-dev"
 db_username = "dev_postgres"
 db_name = "devpostgresrds"
 db_password = "dev_password"
