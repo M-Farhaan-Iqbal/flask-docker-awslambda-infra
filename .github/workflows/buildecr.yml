@@ -24,7 +24,13 @@ jobs:
       - name: Set Terraform Environment Variables
         run: |
           echo "TF_MODULE_NAME=module.lambda_api_cloudwatch_${GITHUB_REF##*/}" >> $GITHUB_ENV
-
+          
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
       - name: Initialize Terraform
         run: |
           terraform init
